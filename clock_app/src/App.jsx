@@ -6,12 +6,13 @@ import { useState } from 'react'
 const App = () => {
   const [amount, setAmount] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [tenth, setTenth] = useState(0);
   const [active, setActive] = useState(false);
   const times = 10;
 
   function completed() {
     pauseTimer();
-    console.log(`It took you ${seconds} seconds to click ${times} times`);
+    console.log(`It took you ${seconds}.${tenth} seconds to click ${times} times`);
     resetTimer();
     setAmount(0);
   }
@@ -24,14 +25,24 @@ const App = () => {
   }
 
   function resetTimer() {
-    setSeconds(0);
     setActive(false);
+    setSeconds(0);
+    setTenth(0);
   }
+
+  if(tenth >= 10){
+    setSeconds(seconds => seconds + 1);
+    setTenth(0);
+}
+
+if(amount >= times){
+  completed();
+}
 
   return (
     <div>
-      <Timer seconds={seconds} setSeconds={setSeconds} active={active} pauseTimer={pauseTimer} resetTimer={resetTimer} ></Timer>
-      <Clicker amount={amount} times={times} completed={completed} addToClicker={addToClicker} active={active}></Clicker>
+      <Timer seconds={seconds} tenth={tenth} setSeconds={setSeconds} setTenth={setTenth} active={active} pauseTimer={pauseTimer} resetTimer={resetTimer} ></Timer>
+      <Clicker amount={amount} times={times} addToClicker={addToClicker} active={active}></Clicker>
     </div>
 
   )

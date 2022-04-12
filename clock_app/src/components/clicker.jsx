@@ -1,10 +1,6 @@
 import React from 'react'
 
 const Clicker = (props) => {
-    if(props.amount >= props.times){
-        props.completed();
-    }
-
     function isActive(){
         if(props.active){
             props.addToClicker()
