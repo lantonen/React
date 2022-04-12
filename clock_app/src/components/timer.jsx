@@ -13,7 +13,7 @@ const Timer = (props) => {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
-    }, [props.active, props.seconds]
+    }, [props]
     );
 
     return (

@@ -7,8 +7,12 @@ const App = () => {
   const [amount, setAmount] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [active, setActive] = useState(false);
+  const times = 10;
 
-  function resetClicker() {
+  function completed() {
+    pauseTimer();
+    console.log(`It took you ${seconds} seconds to click ${times} times`);
+    resetTimer();
     setAmount(0);
   }
 
@@ -27,7 +31,7 @@ const App = () => {
   return (
     <div>
       <Timer seconds={seconds} setSeconds={setSeconds} active={active} pauseTimer={pauseTimer} resetTimer={resetTimer} ></Timer>
-      <Clicker amount={amount} resetClicker={resetClicker} addToClicker={addToClicker}></Clicker>
+      <Clicker amount={amount} times={times} completed={completed} addToClicker={addToClicker} active={active}></Clicker>
     </div>
 
   )
