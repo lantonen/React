@@ -1,23 +1,11 @@
 import React from 'react'
-import { useState } from 'react'
 
-const Clicker = () => {
-    const [amount, setAmount] = useState(0);
-
-    function reset() {
-        setAmount(0);
-    }
-
-    function add() {
-        setAmount(amount => amount + 1);
-    }
-
-
+const Clicker = (props) => {
     return (
         <div>
-            <div>{amount}</div>
-            <button className = "click" onClick={add}>Click here</button>
-            <button className = "reset" onClick={reset}>Reset</button>
+            <div>{props.amount}</div>
+            <button className = "click" onClick={props.addToClicker}>Click here</button>
+            <button className = "reset" onClick={props.resetClicker}>Reset</button>
         </div>
     )
 }

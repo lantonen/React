@@ -1,37 +1,26 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-const Timer = () => {
-    const [seconds, setSeconds] = useState(0);
-    const [active, setActive] = useState(false);
-
-    function pause() {
-        setActive(!active);
-    }
-    
-    function reset() {
-        setSeconds(0);
-        setActive(false);
-    }
+const Timer = (props) => {
 
     useEffect(() => {
         var interval;
-        if (active) {
+        if (props.active) {
             interval = setInterval(() => {
-                setSeconds(seconds => seconds + 1);
+                props.setSeconds(seconds => seconds + 1);
             }, 1000);
-        } else if (!active && seconds !== 0) {
+        } else if (!props.active && props.seconds !== 0) {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
-    }, [active, seconds]
+    }, [props.active, props.seconds]
     );
 
     return (
         <div>
-            <div>{seconds}</div>
-            <button className = "start/pause" onClick={pause}>Start/Pause</button>
-            <button className = "reset" onClick={reset}>Reset</button>
+            <div>{props.seconds}</div>
+            <button className = "start/pause" onClick={props.pauseTimer}>Start/Pause</button>
+            <button className = "reset" onClick={props.resetTimer}>Reset</button>
         </div>
         
     )
