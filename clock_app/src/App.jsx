@@ -4,47 +4,30 @@ import Clicker from './components/clicker'
 import { useState } from 'react'
 
 const App = () => {
-  const [amount, setAmount] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const [tenth, setTenth] = useState(0);
-  const [active, setActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [isReset, setIsReset] = useState(false);
+
+  let time = 0.0;
   const times = 10;
 
   function completed() {
-    pauseTimer();
-    console.log(`It took you ${seconds}.${tenth} seconds to click ${times} times`);
-    resetTimer();
-    setAmount(0);
+    //console.log(`It took you ${seconds}.${tenth} seconds to click ${times} times`);
+    setIsActive(false);
   }
 
-  function addToClicker() {
-    setAmount(amount => amount + 1);
-  }
-  function pauseTimer() {
-    setActive(!active);
+  function startGame(value){
+    setIsActive(value);
   }
 
-  function resetTimer() {
-    setActive(false);
-    setSeconds(0);
-    setTenth(0);
+  function resetGame(value){
+    setIsReset(value);
   }
-
-  if(tenth >= 10){
-    setSeconds(seconds => seconds + 1);
-    setTenth(0);
-}
-
-if(amount >= times){
-  completed();
-}
 
   return (
     <div>
-      <Timer seconds={seconds} tenth={tenth} setSeconds={setSeconds} setTenth={setTenth} active={active} pauseTimer={pauseTimer} resetTimer={resetTimer} ></Timer>
-      <Clicker amount={amount} times={times} addToClicker={addToClicker} active={active}></Clicker>
+      <Timer startGame={startGame} resetGame={resetGame}></Timer>
+      <Clicker isReset={isReset} times={times} test={isActive} completed={completed} resetGame={resetGame}></Clicker>
     </div>
-
   )
 }
 

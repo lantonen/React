@@ -1,33 +1,47 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState} from 'react'
 
 const Timer = (props) => {
 
-    
+    const [seconds, setSeconds] = useState(0);
+    const [tenth, setTenth] = useState(0);
+    const [active, setActive] = useState(false);
+
+    function pauseTimer() {
+        setActive(!active);
+        props.startGame(!active);
+    }
 
     useEffect(() => {
         var intervalForThenth;
-        if (props.active) {
+        if (active) {
             intervalForThenth = setInterval(() => {
-                props.setTenth(tenth => tenth + 1);
+                setTenth(tenth => tenth + 1);
             }, 100);
-        } else if (!props.active && props.seconds !== 0) {
+        } else if (!active && seconds !== 0) {
             clearInterval(intervalForThenth);
         }
         return () => clearInterval(intervalForThenth);
-    }, [props]
+    }, [active, seconds]
     );
     
-    if(props.tenth >= 10){
-        props.setSeconds(seconds => seconds + 1);
-        props.setTenth(0);
+    function resetTimer() {
+        setActive(false);
+        setSeconds(0);
+        setTenth(0);
+        props.resetGame(true)
+    }
+
+    if(tenth >= 10){
+        setSeconds(seconds => seconds + 1);
+        setTenth(0);
     }
 
     return (
         <div>
-            <div>{props.seconds}.{props.tenth}</div>
-            <button className = "start/pause" onClick={props.pauseTimer}>Start/Pause</button>
-            <button className = "reset" onClick={props.resetTimer}>Reset</button>
+            <div>{seconds}.{tenth}</div>
+            <button className = "start/pause" onClick={pauseTimer}>Start/Pause</button>
+            <button className = "reset" onClick={resetTimer}>Reset</button>
         </div>
         
     )
