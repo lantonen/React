@@ -24,6 +24,14 @@ const Timer = (props) => {
         return () => clearInterval(intervalForThenth);
     }, [active, seconds]
     );
+
+    useEffect(() => {
+        if(props.isCompleted){
+            resetTimer();
+            props.setC(false, parseFloat(`${seconds}.${tenth}`));
+        }
+    }
+    );
     
     function resetTimer() {
         setActive(false);

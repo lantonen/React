@@ -6,13 +6,12 @@ import { useState } from 'react'
 const App = () => {
   const [isActive, setIsActive] = useState(false);
   const [isReset, setIsReset] = useState(false);
-
-  let time = 0.0;
+  const [isCompleted, setIsCompleted] = useState(false);
   const times = 10;
 
   function completed() {
-    //console.log(`It took you ${seconds}.${tenth} seconds to click ${times} times`);
     setIsActive(false);
+    setIsCompleted(true);
   }
 
   function startGame(value){
@@ -21,12 +20,19 @@ const App = () => {
 
   function resetGame(value){
     setIsReset(value);
+    setIsCompleted(false);
+    setIsActive(false);
+  }
+
+  function setC(value, time){
+    setIsCompleted(value);
+    console.log(`It took you ${time} seconds to click 10 times`);
   }
 
   return (
     <div>
-      <Timer startGame={startGame} resetGame={resetGame}></Timer>
-      <Clicker isReset={isReset} times={times} test={isActive} completed={completed} resetGame={resetGame}></Clicker>
+      <Timer isActive={isActive} isCompleted={isCompleted} startGame={startGame} resetGame={resetGame} setC={setC}></Timer>
+      <Clicker isReset={isReset} times={times} test={isActive} completed={completed} resetGame={resetGame} ></Clicker>
     </div>
   )
 }

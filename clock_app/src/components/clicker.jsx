@@ -6,7 +6,12 @@ const Clicker = (props) => {
 
     function isActive(){
         if(props.test){
-            addToClicker()
+            if(amount >= props.times - 1){
+                props.completed();
+            }
+            else{
+                addToClicker()
+            }
         }
     }
 
@@ -14,16 +19,10 @@ const Clicker = (props) => {
         setAmount(amount => amount + 1);
     }
 
-    if(amount >= props.times){
-        props.completed();
-    }
-
-    
     useEffect(() => {
         if(props.isReset === true){
-        console.log(props.isReset)
-        setAmount(0);
-        props.resetGame(false);
+            setAmount(0);
+            props.resetGame(false);
     }
     }, [props]
     );
