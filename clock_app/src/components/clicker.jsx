@@ -5,7 +5,7 @@ const Clicker = (props) => {
     const [amount, setAmount] = useState(0);
 
     function isActive(){
-        if(props.test){
+        if(props.mode === "Running"){
             if(amount >= props.times - 1){
                 props.completed();
             }
@@ -20,9 +20,9 @@ const Clicker = (props) => {
     }
 
     useEffect(() => {
-        if(props.isReset === true){
+        if(props.mode === "Reseting"){
             setAmount(0);
-            props.resetGame(false);
+            props.stopGame();
     }
     }, [props]
     );

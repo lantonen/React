@@ -9,7 +9,13 @@ const Timer = (props) => {
 
     function pauseTimer() {
         setActive(!active);
-        props.startGame(!active);
+        if (active === true) {
+            props.stopGame();
+        }
+        else {
+            props.runGame();
+        }
+
     }
 
     useEffect(() => {
@@ -26,9 +32,9 @@ const Timer = (props) => {
     );
 
     useEffect(() => {
-        if(props.isCompleted){
+        if(props.mode === "Completed"){
+            props.print(parseFloat(`${seconds}.${tenth}`));
             resetTimer();
-            props.setC(false, parseFloat(`${seconds}.${tenth}`));
         }
     }
     );
@@ -37,7 +43,7 @@ const Timer = (props) => {
         setActive(false);
         setSeconds(0);
         setTenth(0);
-        props.resetGame(true)
+        props.resetGame();
     }
 
     if(tenth >= 10){

@@ -4,35 +4,37 @@ import Clicker from './components/clicker'
 import { useState } from 'react'
 
 const App = () => {
-  const [isActive, setIsActive] = useState(false);
-  const [isReset, setIsReset] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
+
+  //Pause, Running, Reseting,  Completed
+  const [mode, setMode] = useState("Pause");
   const times = 10;
 
   function completed() {
-    setIsActive(false);
-    setIsCompleted(true);
+    setMode("Completed")
   }
 
-  function startGame(value){
-    setIsActive(value);
+  function runGame(){
+    setMode("Running")
   }
 
-  function resetGame(value){
-    setIsReset(value);
-    setIsCompleted(false);
-    setIsActive(false);
+  function stopGame(){
+    setMode("Pause")
   }
 
-  function setC(value, time){
-    setIsCompleted(value);
+
+  function resetGame(){
+    setMode("Reseting")
+  }
+
+  function printCompleteTime(time){
     console.log(`It took you ${time} seconds to click 10 times`);
   }
 
+
   return (
     <div>
-      <Timer isActive={isActive} isCompleted={isCompleted} startGame={startGame} resetGame={resetGame} setC={setC}></Timer>
-      <Clicker isReset={isReset} times={times} test={isActive} completed={completed} resetGame={resetGame} ></Clicker>
+      <Timer mode={mode} runGame={runGame} resetGame={resetGame} stopGame={stopGame} print={printCompleteTime} ></Timer>
+      <Clicker mode={mode} times={times} completed={completed} resetGame={resetGame} stopGame={stopGame} ></Clicker>
     </div>
   )
 }
