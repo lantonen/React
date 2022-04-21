@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react'
 const Clicker = (props) => {
     const [amount, setAmount] = useState(0);
 
-    function isActive(){
-        if(props.mode === "Running"){
-            if(amount >= props.times - 1){
+    function isActive() {
+        if (props.mode === "Running") {
+            if (amount >= props.times - 1) {
                 props.completed();
             }
-            else{
+            else {
                 addToClicker()
             }
         }
@@ -20,18 +20,18 @@ const Clicker = (props) => {
     }
 
     useEffect(() => {
-        if(props.mode === "Reseting"){
+        if (props.mode === "Resetting") {
             setAmount(0);
             props.stopGame();
-    }
-    }, [props]
+        }
+    }, [props.mode]
     );
 
 
     return (
         <div>
             <div>{amount}</div>
-            <button className = "click" onClick={isActive}>Click here</button>
+            <button className="click" onClick={isActive}>Click here</button>
         </div>
     )
 }

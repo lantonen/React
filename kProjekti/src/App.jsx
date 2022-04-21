@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 const App = () => {
 
-  //Pause, Running, Reseting,  Completed
+  //Pause, Running, Resetting, Completed
   const [mode, setMode] = useState("Pause");
   const times = 10;
 
@@ -21,15 +21,13 @@ const App = () => {
     setMode("Pause")
   }
 
-
   function resetGame(){
-    setMode("Reseting")
+    setMode("Resetting")
   }
 
   function printCompleteTime(time){
     console.log(`It took you ${time} seconds to click 10 times`);
   }
-
 
   return (
     <div>
