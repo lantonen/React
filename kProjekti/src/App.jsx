@@ -26,7 +26,7 @@ const App = () => {
   }
 
   function printCompleteTime(time){
-    console.log(`It took you ${time} seconds to click 10 times`);
+    console.log(`It took you ${time} seconds to click ${times} times`);
   }
 
   return (
